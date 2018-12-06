@@ -26,7 +26,7 @@ echo "pull master branch"
 git pull origin $masterBranch
 
 #Goto ranger_app branch
-echo "move tp ranger_aoo branch"
+echo "move tp ranger_app branch"
 git checkout $rangerBranch
 
 #Pull ranger_app branch into ranger_app branch
