@@ -18,61 +18,79 @@ paiBranch=Prod
 masterBranch=master
 
 #Goto master branch
+echo "Move to master branch"
 git checkout $masterBranch
 
 #Pull master branch into master branch
+echo "pull master branch"
 git pull origin $masterBranch
 
 #Goto ranger_app branch
+echo "move tp ranger_aoo branch"
 git checkout $rangerBranch
 
 #Pull ranger_app branch into ranger_app branch
+echo "pull ranger_app branch"
 git pull origin $rangerBranch
 
 #Pull ranger_app branch into ranger_app branch
+echo "pull master branch"
 git pull origin $masterBranch
 
 #push to repo
+echo "merge master to ranger_app "
 git push origin $rangerBranch
 
 # #Build
+echo "gulp webpack"
 # gulp webpack
 
 #Add to Repo
 # git add public/.
+echo "add all changes"
 git add .
 
 #Commit changes
+echo "Commit message"
 read commit
 git commit -m $commit
 
 #push to repo
+echo "push to ranger_app"
 git push origin $rangerBranch
 
 #Goto pai_app branch
+echo "Move to pai_app"
 git checkout $paiBranch
 
 #Pull pai_app branch into pai_app branch
+echo "pull pai_app branch"
 git pull origin $paiBranch
 
 #Pull pai_app branch into master branch
+echo "pull master branch"
 git pull origin $masterBranch
 
 #push to repo
+echo "merge master to pai_app"
 git push origin $paiBranch
 
 # #Build
+echo "gulp webpack"
 # gulp webpack
 
 #Add to Repo
 # git add public/.
+echo "add all changes"
 git add .
 
 #Commit changes
+echo "commit message"
 read commit
 git commit -m $commit
 
 #push to repo
+echo "push to pai_app"
 git push origin $paiBranch
 
 # releaseBranch=release-$versionLabel
