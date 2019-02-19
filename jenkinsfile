@@ -4,7 +4,17 @@
 // ----------------------------------------------------------------------
 pipeline {
    agent any
+   tools {nodejs "node"}
    stages {
+   stage('Test') {
+      steps {
+         sh 'npm test'
+      }
+      stage('Install dependencies') {
+      steps {
+        sh 'npm install'
+      }
+    }
       stage('Deploy') {
          // Using 'agent none' so that the input step doesn't tie up an
          // executor waiting for input, instead it will use a "light 
