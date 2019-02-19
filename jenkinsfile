@@ -6,27 +6,29 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh  'ls -al'
-                sh ". ~/.nvm/nvm.sh"
-                sh ". ~/.profile"
-                sh ". ~/.bashrc"
-            sh " if [ ! -d ~/.nvm ]; then"
-                sh "curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash"
-                sh "source ~/.nvm/nvm.sh"
-                sh "source ~/.profile"
-                sh "source ~/.bashrc"
-                sh "nvm install 5.0"
-                sh "npm install"
-                sh "npm run front"
-                sh "nvm install 6.9.1"
-                sh "nvm list"
-                sh "nvm use 6.9.1"
-                sh "nvm alias default 6.9.1"
-            sh "fi"
-                sh "nvm install 6.9.1"
-                sh "nvm list"
-                sh "nvm use 6.9.1"
-                sh "nvm alias default 6.9.1"
-                sh "node -v"
+                sh """
+                    echo ${SHELL}
+                    . ~/.profile
+                    . ~/.bashrc
+                    if [ ! -d ~/.nvm ]; then
+                      curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash
+                      source ~/.nvm/nvm.sh
+                      source ~/.profile
+                      source ~/.bashrc
+                      nvm install 5.0
+                      npm install
+                      npm run front
+                      nvm install 6.9.1
+                      nvm list
+                      nvm use 6.9.1
+                      nvm alias default 6.9.1
+                    fi
+                      nvm install 6.9.1
+                      nvm list
+                      nvm use 6.9.1
+                      nvm alias default 6.9.1
+                      node -v
+                """
             }
         }
         stage('Build') {
