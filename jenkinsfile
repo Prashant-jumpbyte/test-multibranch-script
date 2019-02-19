@@ -4,6 +4,7 @@ pipeline {
   stages {
     stage('Init Project') {
       steps {
+      sh 'npm --version'
         echo "NPM INIT"
       }
     }
