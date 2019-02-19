@@ -5,10 +5,12 @@ pipeline {
         stage('Pull') {
             steps {
                 echo 'Building..'
+                mkdir test
             }
         }
         stage('Build') {
             steps {
+                
                 echo 'Testing..'
             }
         }
