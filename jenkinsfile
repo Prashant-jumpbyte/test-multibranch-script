@@ -33,7 +33,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                
+                sh 'nvm list'
                 echo 'Testing..'
             }
         }
