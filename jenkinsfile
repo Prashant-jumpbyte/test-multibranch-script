@@ -12,8 +12,6 @@ pipeline {
          agent none
          steps {
                sh "node --version"
-               sh "node --v"
-               sh "node -v"
             // Wrap the input step in a timeout so that Jenkins won't
             // be left waiting for input forever...
             timeout(time: 5, unit: 'MINUTES') {
