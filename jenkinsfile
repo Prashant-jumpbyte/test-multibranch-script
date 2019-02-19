@@ -1,47 +1,22 @@
+// Jenkinsfile-BasicInput
+// ----------------------------------------------------------------------
+// Basic Input step - asks user: Should I Deploy? Proceed or Abort
+// ----------------------------------------------------------------------
 pipeline {
-    agent any
-
-    stages {
-        stage('Pull') {
-            steps {
-                echo 'Building..'
-                sh  'ls -al'
-                sh """
-                    sudo su
-                    echo ${SHELL}
-                    . ~/.profile
-                    . ~/.bashrc
-                    if [ ! -d ~/.nvm ]; then
-                      curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash
-                      source ~/.nvm/nvm.sh
-                      source ~/.profile
-                      source ~/.bashrc
-                      nvm install 5.0
-                      npm install
-                      npm run front
-                      nvm install 6.9.1
-                      nvm list
-                      nvm use 6.9.1
-                      nvm alias default 6.9.1
-                    fi
-                      nvm install 6.9.1
-                      nvm list
-                      nvm use 6.9.1
-                      nvm alias default 6.9.1
-                      node -v
-                """
+   agent any
+   stages {
+      stage('Deploy') {
+         // Using 'agent none' so that the input step doesn't tie up an
+         // executor waiting for input, instead it will use a "light 
+         // weight" process on the master
+         agent none
+         steps {
+            // Wrap the input step in a timeout so that Jenkins won't
+            // be left waiting for input forever...
+            timeout(time: 5, unit: 'MINUTES') {
+               input 'Should I Deploy?'
             }
-        }
-        stage('Build') {
-            steps {
-                sh 'nvm list'
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
-    }
+         }
+      }
+   }
 }
