@@ -1,22 +1,39 @@
-// Jenkinsfile-BasicInput
-// ----------------------------------------------------------------------
-// Basic Input step - asks user: Should I Deploy? Proceed or Abort
-// ----------------------------------------------------------------------
 pipeline {
-   agent any
-   stages {
-      stage('Deploy') {
-         // Using 'agent none' so that the input step doesn't tie up an
-         // executor waiting for input, instead it will use a "light 
-         // weight" process on the master
-         agent none
-         steps {
-            // Wrap the input step in a timeout so that Jenkins won't
-            // be left waiting for input forever...
-            timeout(time: 5, unit: 'MINUTES') {
-               input 'Should I Deploy?'
-            }
-         }
-      }
-   }
+	agent any
+	
+	stages {
+		stage("Build") {
+			steps {
+				sh 'mvn -v'
+			}
+		}
+		
+		stage("Testing") {
+			parallel {
+				stage("Unit Tests") {
+					agent { docker 'openjdk:7-jdk-alpine' }
+					steps {
+						sh 'java -version'
+					}
+				}
+				stage("Functional Tests") {
+					agent { docker 'openjdk:8-jdk-alpine' }
+					steps {
+						sh 'java -version'
+					}
+				}
+				stage("Integration Tests") {
+					steps {
+						sh 'java -version'
+					}
+				}
+			}
+		}
+		
+		stage("Deploy") {
+			steps {
+				echo "Deploy!"
+			}
+		}
+	}
 }
