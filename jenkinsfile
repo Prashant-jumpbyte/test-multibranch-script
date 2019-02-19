@@ -9,7 +9,7 @@ pipeline {
                 sh ". ~/.nvm/nvm.sh"
                 sh ". ~/.profile"
                 sh ". ~/.bashrc"
-            if [ ! -d ~/.nvm ]; then
+            sh " if [ ! -d ~/.nvm ]; then
                 curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash
                 source ~/.nvm/nvm.sh
                 source ~/.profile
@@ -26,7 +26,7 @@ pipeline {
                 nvm list
                 nvm use 6.9.1
                 nvm alias default 6.9.1
-                node -v'
+                node -v'"
             }
         }
         stage('Build') {
