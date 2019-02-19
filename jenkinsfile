@@ -1,135 +1,20 @@
-sh label: '', script: '''#!/bin/bash
-#
-#Connect Jenkins child node(slave)
-#java -jar ~/.bin/agent.jar -jnlpUrl http://localhost:8080/computer/node%201/slave-agent.jnlp -secret 0f40b2d6a863911b704c795e51f29cd5840c0bab3e0fba3e54911b7d5aa653d9 -workDir "jenkins/workspace"
-#java -jar ~/Downloads/agent.jar -jnlpUrl /localhost:8080/computer/node%201/slave-agent.jnlp -secret 0f40b2d6a863911b704c795e51f29cd5840c0bab3e0fba3e54911b7d5aa653d9 -workDir "jenkins/workspace"
-
-# current Git branch
-branch=$(git symbolic-ref HEAD | sed -e \'s,.*/\\(.*\\),\\1,\')
-
-# v1.0.0, v1.5.2, etc.
-versionLabel=v$1
-
-#==============================================================================================================================================
-
-# establish branch and tag name variables
-# devBranch
-
- rangerBranch=ranger_app
- paiBranch=pai_app
- masterBranch=master
-
-#==============================================================================================================================================
-echo "------> Check NVM"
-. ~/.nvm/nvm.sh
-. ~/.profile
-. ~/.bashrc
-if [ ! -d ~/.nvm ]; then
-echo "------> Install NVM <------"
-  curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash
-  source ~/.nvm/nvm.sh
-  source ~/.profile
-  source ~/.bashrc
-  nvm install 5.0
-  npm install
-  npm run front
-  nvm install 6.9.1
-  nvm list
-  nvm use 6.9.1
-  nvm alias default 6.9.1
-fi
-  nvm install 6.9.1
-  nvm list
-  nvm use 6.9.1
-  nvm alias default 6.9.1
-  node -v
-#==============================================================================================================================================
-#Load External files
-
-
-echo "------> Load External files <------"
-pwd
-echo "------> Create Shipment-import file <------"
-sudo mkdir /var/lib/jenkins/workspace/RangerApp-Build-Server/shipment-import
-
-echo "------> Load Config.json <------"
-sudo cp /var/lib/jenkins/workspace/config.json /var/lib/jenkins/workspace/RangerApp-Build-Server/config/
-
-echo "------> Load local-config.js <------"
-sudo cp /var/lib/jenkins/workspace/local-config.js /var/lib/jenkins/workspace/RangerApp-Build-Server/
-
-
-#==============================================================================================================================================
-
-#Fetch repo info
-#git fetch --tags --progress https://Prashant-jumpbyte:Prox.9033773856@github.com/SC-Coordinate/ranger +refs/heads/*:refs/remotes/ranger/*
-
-#Goto master branch
-echo "------> Move to master branch <------"
-sudo git checkout $masterBranch
-
-#Pull master branch into master branch
-echo "------> Pull master branch <------"
-sudo git pull origin $masterBranch
-
-#Set npm install
-echo "------> Install node modules <------"
-npm install
-npm install data-file
-
-#Install Gulp
-echo "------> Instal gulp <------"
-sudo npm install gulp -g
-
-
-echo "------> Node SASS <------"
-npm ls node-sass
-npm rebuild node-sass
-npm install node-gyp
-npm install libxmljs
-#==============================================================================================================================================
-
-#Goto ranger_app branch
-echo "------> Move to ranger_app branch <------"
-git checkout $rangerBranch
-
-git branch 
-
-#Pull ranger_app branch into ranger_app branch
-echo "------> Pull ranger_app branch <------"
-git pull origin $rangerBranch
-
-#Pull ranger_app branch into ranger_app branch
-echo "------> Pull master branch <------"
-git pull origin $masterBranch
-
-#push to repo
-echo "------> Merge master to ranger_app <------"
-git push origin $rangerBranch
-
-##Build
-echo "------> Gulp webpack <------"
-gulp webpack
-
-#Check git status
-echo "------> Check git status <------"
-git status
-
-git branch
-
-#Add to Repo
-# git add public/.
-echo "------> Add all changes <------"
-git add .
-
-#Commit changes
-echo "------> Commit message <------"
-#read commit
-git commit -m "Client build"
-
-#push to repo
-echo " Push to ranger_app <------"
-git push origin $rangerBranch
-
-#==============================================================================================================================================
-'''
+pipeline {
+  agent any
+    
+  tools {nodejs "node"}
+    
+  stages {
+        
+    stage('Install dependencies') {
+      steps {
+        sh 'npm install'
+      }
+    }
+     
+    stage('Test') {
+      steps {
+         sh 'npm test'
+      }
+    }      
+  }
+}
