@@ -2,7 +2,12 @@ pipeline {
   agent any
         
   stages {
-        
+    stage('Init Project') {
+      steps {
+        sh 'npm init'
+      }
+    }
+       
     stage('Install dependencies') {
       steps {
         sh 'npm install'
