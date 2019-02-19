@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh  'ls -al'
-                sh `. ~/.nvm/nvm.sh
+                sh '. ~/.nvm/nvm.sh
 . ~/.profile
 . ~/.bashrc
 if [ ! -d ~/.nvm ]; then
@@ -26,7 +26,7 @@ fi
   nvm list
   nvm use 6.9.1
   nvm alias default 6.9.1
-  node -v`
+  node -v'
             }
         }
         stage('Build') {
