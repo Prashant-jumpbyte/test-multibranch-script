@@ -1,3 +1,74 @@
-this is testing doc.
-test branch for jenkins
-Test commit
+import { Platform } from 'react-native'
+const RNFS = require('react-native-fs');
+export const stage = 'dev';
+// export const sentryDSNKey = 'https://79c3f12130bf437a981b2b5ad3a57a46@sentry.io/1380983'; // Local
+export const sentryDSNKey = 'https://2c608cc44de648efad81bcdd7485064a@sentry.io/1381050'; // Production
+export const errMsgPendingShipment = 'Scan Pending Shipment Or Force Close';
+export const invalidTrackingNo = 'Invalid Tracking No';
+export const invalidRoute = 'Invalid Route';
+export const noShipmentFound = 'No Shipment Found';
+export const noLocationFount = 'No Location Found';
+export const GOOGLE_MAPS_APIKEY = 'AIzaSyBLKVq8B4xIVEZL4qN_Y2ETg9fbbtUvkCI';
+export const sessionTimeOut = 15 * 60 * 1000; // In milliseconds
+export const serverUrl = (stage == 'dev') ? 'https://pai-dev-tnt.coordinate.work/' : 'https://vts.trackandtracecash.com/';
+export const paiUrl = (stage == 'dev') ? 'https://pai-dev-tnt.coordinate.work/api/' : 'https://vts.trackandtracecash.com/api/'; //'http://192.168.29.13:3000/api/';
+export const successIntervalTime = 15 * 60 * 1000; // In milliseconds
+export const errorIntervalTime = 1 * 60 * 1000; // In milliseconds
+export const stepRouteLoadTanker = 'STEP | ROUTE-LOADTRUCK- TANKERFROMLOCATION';
+export const stepRouteLoadTruck = 'STEP | ROUTE-LOADTRUCK';
+export const stepStopCant = 'STEP | STOP-CANT';
+export const stepStopCantReopen = 'STEP | STOP-CANT-REOPEN';
+export const stepStopDo = 'STEP | STOP-DO';
+export const stepStopBagsOut = 'STEP | STOP-BAGSOUT';
+export const stepStopATMOpenCode = 'STEP | STOP-ATM-OPENCODE';
+export const stepStopATMCloseCode = 'STEP | STOP-ATM-CLOSECODE';
+export const stepStopATMLoadAmount = 'STEP | STOP-ATM-LOADAMOUNT';
+export const stepStopVehicleOut = 'STEP | STOP-VEHICLEOUT';
+export const stepStopVehicleIn = 'STEP | STOP-VEHICLEIN';
+export const stepStopLocationID = 'STEP | STOP-LOCATIONID';
+export const stepStopReceiptPicture = 'STEP | STOP-RECEIPTPICTURE';
+export const stepStopATMResidualId = 'STEP | STOP-ATM-RESIDUALID';
+export const stepStopATMResidualAmt = 'STEP | STOP-ATM-RESIDUALAMOUNT';
+// Below message store in ranger message language
+export const errMsgUnableToAssUserToRoute = 'Unable to Associate User to Route. Please Try Again';
+export const errMsgUnableToAssTruckToRoute = 'Unable to Associate Truck to Route. Please Try Again';
+export const errMsgUnableToAssDriverIdToRoute = 'Unable to Associate Driver ID to Route. Please Try Again';
+export const errMsgUnableToAssGuardToRoute = 'Unable to Associate Guard ID to Route. Please Try Again'
+export const errInvalidUserId = 'Invalid User ID';
+export const errUserIdNotValid = 'User ID is Not Valid';
+export const errMsgInvalidVehicleID = 'Invalid Vehicle ID';
+export const errMsgInvalidRouteID = 'Invalid Route ID';
+export const errInvalidTankerId = 'Invalid Tanker ID';
+export const errMsgTankerIdNotValid = 'Tanker ID is Not Valid';
+export const errMsgShipmentNotOnRoute = 'Shipment Not on Route Today. Please Try Again';
+export const errMsgTrackingIDNotValid = 'TrackingID Not Valid. Please Try Again';
+export const errMsgTrackingAlreadyScan = 'TrackingID Already Scanned';
+export const errMsgMulBranchIdNotAllow = 'Multiple BranchId not Allow';
+export const errMsgInvalidBranchID = 'Invalid Branch ID';
+export const errMsgRouteNotLoaded = 'Route Has Not Been Loaded. Please First Load Truck';
+export const errMsgScanBranchId = 'Scan Branch Id';
+export const errMsgInternetDisconnected = 'You are not connected to internet.';
+export const errMsgEnterTankerNo = 'Enter Tanker No';
+export const errMsgEnterReasonCode = 'Enter Reason';
+export const errMsgTrackingIdNotForStop = 'Tracking ID Not for Selected Stop';
+export const errMsgSelectReason = 'Select Reason';
+export const errMsgBagIdNotSame = 'Load Bag ID and Scan Bag ID not same';
+export const errMsgVehicleIdNotSame = 'Route Vehicle Id and Scan Vehicle Id not Same';
+export const errMsgInvalidSuperviser = 'Invalid Superviser';
+export const errMsgTryAgain = 'Something Want Wrong. please Try Again';
+export const errMsgInvalidLocationID = 'Invalid Location ID';
+export const errMsgLocationNotGet = 'Location Not Get. Please Try Again';
+export const errMsgResidualShipmentNotScan = 'Residual Shipment not allow to scan';
+export const errMsgInvalidAmount = 'Invalid Amount';
+export const errMsgMoveOtherLocation = 'Please complete your stop delivery sequence before moving to another Location';
+export const errMsgInvalidCloseCode = 'Invalid Close Code';
+export const errMsgStopVehicleIdNotSame = 'Stop Vehicle Out Id and Stop Vehicle In Id not Same';
+const dirHome = Platform.select({
+    ios: `${RNFS.DocumentDirectoryPath}`,
+    android: `${RNFS.ExternalDirectoryPath}`
+});
+export const dirPicutures = `${dirHome}/Assets`;
+export const lockType = {
+    kaba: 'Auditable Electronic - Cencon',
+    sg: 'S&G High Security'
+};
